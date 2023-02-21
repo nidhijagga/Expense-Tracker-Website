@@ -11,9 +11,3 @@ signUp.addEventListener("click", () => {
 signIn.addEventListener("click", () => {
   container.classList.remove("right-panel-active");
 });
-
-async function postUserSignUp() {
-  const res = axios.post("http://localhost:3000/user/signUp");
-}
-
-signUpBtn.addEventListener("click", postUserSignUp);
