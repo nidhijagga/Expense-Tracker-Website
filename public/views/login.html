@@ -11,27 +11,39 @@
     <h2>Tracking expenses is directly proportional to saving money.</h2>
     <div class="container" id="container">
       <div class="form-container sign-up-container">
-        <form action="/user/signUp" method="POST">
+        <form action="/user/signUp" method="post">
           <h1>Create Account</h1>
           <span>fill your credentials here</span>
-          <input type="text" placeholder="Name" name="name" required />
-          <input type="email" placeholder="Email" name="email" required />
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            id="name"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            name="email"
+            id="email"
+            required
+          />
           <input
             type="password"
+            id="password"
             placeholder="Password"
             name="password"
             required
           />
           <button id="signUpBtn">Sign Up</button>
-          <span id="error"></span>
         </form>
       </div>
       <div class="form-container sign-in-container">
-        <form action="#">
+        <form action="/user/login" method="post">
           <h1>Login</h1>
           <span>use your previous credentials</span>
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
+          <input type="email" placeholder="Email" name="loginEmail" />
+          <input type="password" placeholder="Password" name="loginPassword" />
           <a href="#">Forgot your password?</a>
           <button id="loginBtn">Login</button>
         </form>
@@ -54,5 +66,11 @@
       </div>
     </div>
   </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
+    integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
   <script src="/js/login.js"></script>
 </html>
