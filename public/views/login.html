@@ -39,11 +39,23 @@
         </form>
       </div>
       <div class="form-container sign-in-container">
-        <form action="/user/login" method="post">
+        <form onsubmit="return false;">
           <h1>Login</h1>
           <span>use your previous credentials</span>
-          <input type="email" placeholder="Email" name="loginEmail" />
-          <input type="password" placeholder="Password" name="loginPassword" />
+          <input
+            type="email"
+            placeholder="Email"
+            name="loginEmail"
+            id="loginEmail"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="loginPassword"
+            id="loginPassword"
+            required
+          />
           <a href="#">Forgot your password?</a>
           <button id="loginBtn">Login</button>
         </form>

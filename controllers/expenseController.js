@@ -17,6 +17,7 @@ exports.addExpense = (req, res, next) => {
     category: category,
     description: description,
     amount: amount,
+    userId: req.user.id,
   })
     .then((result) => {
       res.status(200);
@@ -26,7 +27,7 @@ exports.addExpense = (req, res, next) => {
 };
 
 exports.getAllExpenses = (req, res, next) => {
-  Expense.findAll()
+  Expense.findAll({ where: { userId: req.user.id } })
     .then((expenses) => {
       res.json(expenses);
     })
@@ -37,11 +38,8 @@ exports.getAllExpenses = (req, res, next) => {
 
 exports.deleteExpense = (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
-  Expense.findByPk(id)
-    .then((expense) => {
-      return expense.destroy();
-    })
+  console.log(id, req.user.id);
+  Expense.destroy({ where: { id: id, userId: req.user.id } })
     .then((result) => {
       res.redirect("/homePage");
     })
@@ -54,20 +52,14 @@ exports.editExpense = (req, res, next) => {
   const category = req.body.category;
   const description = req.body.description;
   const amount = req.body.amount;
-  console.log(
-    "controller main enter kar gya or yeh rhii values : ",
-    id,
-    category,
-    description,
-    amount
-  );
-  Expense.findByPk(id)
-    .then((expense) => {
-      expense.category = category;
-      expense.description = description;
-      expense.amount = amount;
-      return expense.save();
-    })
+  Expense.update(
+    {
+      category: category,
+      description: description,
+      amount: amount,
+    },
+    { where: { id: id, userId: req.user.id } }
+  )
     .then((result) => {
       res.redirect("/homePage");
     })

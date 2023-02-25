@@ -1,6 +1,14 @@
 const path = require("path");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+function generateAccessToken(id, email) {
+  return jwt.sign(
+    { userId: id, email: email },
+    "kjhsgdfiuiew889kbasgdfskjabsdfjlabsbdljhsd"
+  );
+}
 
 exports.getLoginPage = (req, res, next) => {
   res.sendFile(path.join(__dirname, "../", "public", "views", "login.html"));
@@ -45,32 +53,28 @@ exports.postUserLogin = (req, res, next) => {
     if (user) {
       bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
-          res
+          return res
             .status(500)
-            .send(
-              `<script>alert('Something went wrong!'); window.location.href='/'</script>`
-            );
+            .json({ success: false, message: "Something went Wrong!" });
         }
-        if (result === true) {
-          res
-            .status(200)
-            .send(
-              `<script>alert('Login Successful!'); window.location.href='/'</script>`
-            );
+        if (result == true) {
+          return res.status(200).json({
+            success: true,
+            message: "Login Successful!",
+            token: generateAccessToken(user.id, user.email),
+          });
         } else {
-          res
-            .status(401)
-            .send(
-              `<script>alert('Password Incorrect!'); window.location.href='/'</script>`
-            );
+          return res.status(401).json({
+            success: false,
+            message: "Password Incorrect!",
+          });
         }
       });
     } else {
-      res
-        .status(404)
-        .send(
-          `<script>alert("User doesn't Exists!"); window.location.href='/'</script>`
-        );
+      return res.status(404).json({
+        success: false,
+        message: "User doesn't Exists!",
+      });
     }
   });
 };
