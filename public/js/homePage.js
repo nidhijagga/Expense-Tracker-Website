@@ -4,6 +4,9 @@ const categoryBtn = document.querySelector("#categoryBtn");
 const form = document.getElementById("form1");
 const addExpenseBtn = document.getElementById("submitBtn");
 const table = document.getElementById("tbodyId");
+const buyPremiumBtn = document.getElementById("buyPremiumBtn");
+const reportsLink = document.getElementById("reportsLink");
+const leaderboardLink = document.getElementById("leaderboardLink");
 
 categoryItems.forEach((item) => {
   item.addEventListener("click", (e) => {
@@ -202,89 +205,58 @@ async function editExpense(e) {
     (err) => console.log(err);
   }
 }
+
+async function buyPremium(e) {
+  const token = localStorage.getItem("token");
+  const res = await axios.get(
+    "http://localhost:3000/purchase/premiumMembership",
+    { headers: { Authorization: token } }
+  );
+  console.log(res);
+  var options = {
+    key: res.data.key_id, // Enter the Key ID generated from the Dashboard
+    order_id: res.data.order.id, // For one time payment
+    // This handler function will handle the success payment
+    handler: async function (response) {
+      const res = await axios.post(
+        "http://localhost:3000/purchase/updateTransactionStatus",
+        {
+          order_id: options.order_id,
+          payment_id: response.razorpay_payment_id,
+        },
+        { headers: { Authorization: token } }
+      );
+
+      console.log(res);
+      alert(
+        "Welcome to our Premium Membership, You have now Excess to Reports and LeaderBoard"
+      );
+      localStorage.setItem("token", res.data.token);
+    },
+  };
+  const rzp1 = new Razorpay(options);
+  rzp1.open();
+  e.preventDefault();
+}
+
+async function isPremiumUser() {
+  const token = localStorage.getItem("token");
+  const res = await axios.get("http://localhost:3000/user/isPremiumUser", {
+    headers: { Authorization: token },
+  });
+  if (res.data.isPremiumUser) {
+    buyPremiumBtn.innerHTML = "Premium Member &#128081";
+    reportsLink.removeAttribute("onclick");
+    leaderboardLink.removeAttribute("onclick");
+  }
+}
+
+buyPremiumBtn.addEventListener("click", buyPremium);
 addExpenseBtn.addEventListener("click", addExpense);
-
-document.addEventListener("DOMContentLoaded", getAllExpenses);
-
+document.addEventListener("DOMContentLoaded", isPremiumUser, getAllExpenses);
 table.addEventListener("click", (e) => {
   deleteExpense(e);
 });
-
 table.addEventListener("click", (e) => {
   editExpense(e);
 });
-
-// async function deleteExpense(e) {
-//   try {
-//     if (e.target.classList.contains("delete")) {
-//       let tr = e.target.parentElement.parentElement;
-//       let id = tr.children[0].textContent;
-//       const res = await axios.get(
-//         `http://localhost:3000/get/deleteExpense/${id}`
-//       );
-//       window.location.reload();
-//     }
-//   } catch {
-//     (err) => console.log(err);
-//   }
-// }
-
-// async function editExpense(e) {
-//   try {
-//     const categoryValue = document.getElementById("categoryBtn");
-//     const descriptionValue = document.getElementById("descriptionValue");
-//     const amountValue = document.getElementById("amountValue");
-//     const submitBtn = document.getElementById("submitBtn");
-//     console.log(categoryValue, descriptionValue, amountValue);
-//     if (e.target.classList.contains("edit")) {
-//       let tr = e.target.parentElement.parentElement;
-//       let id = tr.children[0].textContent;
-//       console.log(id);
-//       //Fill the input values with the existing values
-//       const res = await axios.get("http://localhost:3000/get/getAllExpenses");
-//       res.data.forEach((expense) => {
-//         console.log("searching for id");
-//         if (expense.id == id) {
-//           console.log("Yeh id aayi hai res main: " + expense.id);
-//           categoryValue.textContent = expense.category;
-//           descriptionValue.value = expense.description;
-//           amountValue.value = expense.amount;
-//           submitBtn.textContent = "Update";
-
-//           // const form = document.getElementById("form1");
-
-//           submitBtn.addEventListener("click", async function update(e) {
-//             e.preventDefault();
-//             console.log("request to backend for edit");
-//             const res = await axios.post(
-//               `http://localhost:3000/post/editExpense/${id}`,
-//               {
-//                 category: categoryValue.textContent.trimStart().trimEnd(),
-//                 description: descriptionValue.value,
-//                 amount: amountValue.value,
-//               }
-//             );
-
-//             submitBtn.removeEventListener("click", update);
-//             submitBtn.textContent = "Submit";
-//             window.location.reload();
-//           });
-//         }
-//       });
-//     }
-//   } catch {
-//     (err) => console.log(err);
-//   }
-// }
-
-// document.addEventListener("DOMContentLoaded", getAllExpenses);
-
-// table.addEventListener("click", (e) => {
-//   deleteExpense(e);
-// });
-
-// table.addEventListener("click", (e) => {
-//   console.log("calling Edit");
-//   editExpense(e);
-//   console.log("Finish Edit");
-// });
