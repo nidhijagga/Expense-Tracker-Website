@@ -2,11 +2,16 @@ const express = require("express");
 const app = express();
 
 const bodyParser = require("body-parser");
+
+const dotenv = require("dotenv");
+dotenv.config();
+
 const sequelize = require("./util/database");
 
 const userRouter = require("./router/userRouter");
 const expenseRouter = require("./router/expenseRouter");
 const purchaseMembershipRouter = require("./router/purchaseMembershipRouter");
+const leaderboardRouter = require("./router/leaderboardRouter");
 
 const User = require("./models/userModel");
 const Expense = require("./models/expenseModel");
@@ -23,6 +28,8 @@ app.use("/homePage", expenseRouter);
 app.use("/expense", expenseRouter);
 
 app.use("/purchase", purchaseMembershipRouter);
+
+app.use("/premium", leaderboardRouter);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
