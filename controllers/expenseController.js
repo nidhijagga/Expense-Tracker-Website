@@ -1,5 +1,6 @@
 const path = require("path");
 const Expense = require("../models/expenseModel");
+const User = require("../models/userModel");
 const database = require("../util/database");
 
 exports.getHomePage = (req, res, next) => {
@@ -11,6 +12,13 @@ exports.addExpense = (req, res, next) => {
   const category = req.body.category;
   const description = req.body.description;
   const amount = req.body.amount;
+
+  User.update(
+    {
+      totalExpenses: req.user.totalExpenses + amount,
+    },
+    { where: { id: req.user.id } }
+  );
 
   Expense.create({
     date: date,
@@ -38,7 +46,14 @@ exports.getAllExpenses = (req, res, next) => {
 
 exports.deleteExpense = (req, res, next) => {
   const id = req.params.id;
-  console.log(id, req.user.id);
+  Expense.findByPk(id).then((expense) => {
+    User.update(
+      {
+        totalExpenses: req.user.totalExpenses - expense.amount,
+      },
+      { where: { id: req.user.id } }
+    );
+  });
   Expense.destroy({ where: { id: id, userId: req.user.id } })
     .then((result) => {
       res.redirect("/homePage");
@@ -52,6 +67,14 @@ exports.editExpense = (req, res, next) => {
   const category = req.body.category;
   const description = req.body.description;
   const amount = req.body.amount;
+  Expense.findByPk(id).then((expense) => {
+    User.update(
+      {
+        totalExpenses: req.user.totalExpenses - expense.amount + amount,
+      },
+      { where: { id: req.user.id } }
+    );
+  });
   Expense.update(
     {
       category: category,
