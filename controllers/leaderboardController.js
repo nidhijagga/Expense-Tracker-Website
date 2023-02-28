@@ -3,10 +3,14 @@ const User = require("../models/userModel");
 const Expense = require("../models/expenseModel");
 const sequelize = require("../util/database");
 
-exports.getLeaderboardPage = (req, res, next) => {
-  res.sendFile(
-    path.join(__dirname, "../", "public", "views", "leaderboard.html")
-  );
+exports.getLeaderboardPage = async (req, res, next) => {
+  try {
+    res.sendFile(
+      path.join(__dirname, "../", "public", "views", "leaderboard.html")
+    );
+  } catch {
+    (err) => console.log(err);
+  }
 };
 
 // exports.getLeaderboard = (req, res, next) => {
