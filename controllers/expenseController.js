@@ -2,7 +2,6 @@ const path = require("path");
 const Expense = require("../models/expenseModel");
 const User = require("../models/userModel");
 const sequelize = require("../util/database");
-const database = require("../util/database");
 
 exports.getHomePage = async (req, res, next) => {
   try {

@@ -63,7 +63,7 @@
               type="button"
               data-bs-toggle="tooltip"
               data-bs-placement="left"
-              title="Premium Membership inclues LeaderBoard & Daily, Monthly & Yearly Reports"
+              title="Premium Membership inclues LeaderBoard & Daily & Monthly Reports"
             >
               Premium Member &#128081
             </button>
@@ -91,9 +91,9 @@
           <form>
             <div class="mb-3">
               <label for="date" class="form-label"> Select Date</label>
-              <input type="date" class="form-control" id="date" />
+              <input type="date" class="form-control" id="date"/>
             </div>
-            <button type="submit" class="btn btn-primary showBtn">Show</button>
+            <button id="dateShowBtn" type="submit" class="btn btn-primary showBtn">Show</button>
           </form>
         </div>
       </div>
@@ -119,20 +119,9 @@
           <!-- ------------------------------------------------------------------------- -->
           <!-- Daily table body -->
 
-          <tbody id="tbodyId">
-            <tr class="trStyle">
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
+          <tbody id="tbodyDailyId">
           </tbody>
-          <tfoot>
-            <tr class="trStyle">
-              <td></td>
-              <td></td>
-              <td id="dailyTotal">Total</td>
-              <td id="dailyTotalAmount">9000</td>
+          <tfoot id="tfootDailyId">
             </tr>
           </tfoot>
         </table>
@@ -159,7 +148,7 @@
               <label for="month" class="form-label">Select Month</label>
               <input type="month" class="form-control" id="month" />
             </div>
-            <button type="submit" class="btn btn-primary showBtn">Show</button>
+            <button id="monthShowBtn" type="submit" class="btn btn-primary showBtn">Show</button>
           </form>
         </div>
       </div>
@@ -185,21 +174,12 @@
           <!-- ------------------------------------------------------------------------- -->
           <!-- Monthly table body -->
 
-          <tbody id="tbodyId">
-            <tr class="trStyle">
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
+          <tbody id="tbodyMonthlyId">
+            
           </tbody>
-          <tfoot>
-            <tr class="trStyle">
-              <td></td>
-              <td></td>
-              <td id="monthlyTotal">Total</td>
-              <td id="monthlyTotalAmount">9000</td>
-            </tr>
+          
+          <tfoot id="tfootMonthlyId">
+    
           </tfoot>
         </table>
       </div>
@@ -208,14 +188,14 @@
     <!-- ------------------------------------------------------------------------- -->
     <!-- Yearly Table -->
 
-    <div
+    <!-- <div
       class="container table-responsive mt-4 mb-3 p-3 d-flex bd-highlight"
       id="table"
-    >
+    > -->
       <!-- ------------------------------------------------------------------------- -->
       <!-- Yearly table Form -->
 
-      <div class="ps-2 pe-4 py-1 ms-3 me-5 my-1 bd-highlight">
+      <!-- <div class="ps-2 pe-4 py-1 ms-3 me-5 my-1 bd-highlight">
         <div class="my-1">
           <h3>YEARLY REPORTS</h3>
         </div>
@@ -235,7 +215,7 @@
                 <option value="2022">2022</option>
                 <option value="2023">2023</option>
                 <!-- add more options as needed -->
-              </select>
+              <!-- </select>
             </div>
             <button type="submit" class="btn btn-primary showBtn">Show</button>
           </form>
@@ -243,22 +223,22 @@
       </div>
 
       <div class="p-2 flex-grow-1 bd-highlight">
-        <table id="" class="table table-hover" style="width: 100%">
+        <table id="" class="table table-hover" style="width: 100%"> --> 
           <!-- ------------------------------------------------------------------------- -->
           <!-- Yearly table head -->
 
-          <thead>
+          <!-- <thead>
             <tr>
               <th scope="col">Month</th>
               <td></td>
               <th scope="col" style="width: 20%">Amount</th>
             </tr>
-          </thead>
+          </thead> -->
 
           <!-- ------------------------------------------------------------------------- -->
           <!-- Yearly table body -->
 
-          <tbody id="tbodyId">
+          <!-- <tbody id="tbodyId">
             <tr class="trStyle">
               <td>January</td>
               <td></td>
@@ -274,7 +254,7 @@
           </tfoot>
         </table>
       </div>
-    </div>
+    </div> -->
 
     <!-- ---------------------------------------------------------------------------------- -->
     <!-- scripts -->
