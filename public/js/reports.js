@@ -8,6 +8,8 @@ const monthShowBtn = document.getElementById("monthShowBtn");
 const tbodyMonthly = document.getElementById("tbodyMonthlyId");
 const tfootMonthly = document.getElementById("tfootMonthlyId");
 
+const logoutBtn = document.getElementById("logoutBtn");
+
 async function getDailyReport(e) {
   try {
     e.preventDefault();
@@ -150,5 +152,15 @@ async function getMonthlyReport(e) {
   }
 }
 
+async function logout() {
+  try {
+    localStorage.clear();
+    window.location.href = "/";
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 dateShowBtn.addEventListener("click", getDailyReport);
 monthShowBtn.addEventListener("click", getMonthlyReport);
+logoutBtn.addEventListener("click", logout);
