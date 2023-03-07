@@ -85,3 +85,11 @@ body {
   background-color: #3d5a80;
   color: white;
 }
+.page-link {
+  background-color: #3d5a80;
+  color: white;
+}
+.page-link:hover {
+  background-color: #d2eaf7;
+  color: #233b64;
+}
