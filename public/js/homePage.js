@@ -296,7 +296,6 @@ async function buyPremium(e) {
     "http://localhost:3000/purchase/premiumMembership",
     { headers: { Authorization: token } }
   );
-  console.log(res);
   var options = {
     key: res.data.key_id, // Enter the Key ID generated from the Dashboard
     order_id: res.data.order.id, // For one time payment

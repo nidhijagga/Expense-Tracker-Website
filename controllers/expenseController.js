@@ -104,7 +104,6 @@ exports.deleteExpense = async (req, res, next) => {
 exports.editExpense = async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.log(req.body);
     const category = req.body.category;
     const description = req.body.description;
     const amount = req.body.amount;

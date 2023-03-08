@@ -15,7 +15,6 @@ categoryItems.forEach((item) => {
 async function getLeaderboard() {
   const res = await axios.get("http://localhost:3000/user/getAllUsers");
   let position = 1;
-  console.log(res.data);
   res.data.forEach((user) => {
     let name = user.name;
     let amount = user.totalExpenses;
