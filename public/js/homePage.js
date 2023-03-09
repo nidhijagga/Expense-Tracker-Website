@@ -309,8 +309,6 @@ async function buyPremium(e) {
         },
         { headers: { Authorization: token } }
       );
-
-      console.log(res);
       alert(
         "Welcome to our Premium Membership, You have now access to Reports and LeaderBoard"
       );
