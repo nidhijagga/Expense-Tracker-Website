@@ -13,7 +13,7 @@ categoryItems.forEach((item) => {
 });
 
 async function getLeaderboard() {
-  const res = await axios.get(`https://13.231.221.173:3000/user/getAllUsers`);
+  const res = await axios.get(`http://13.231.221.173:3000/user/getAllUsers`);
   let position = 1;
   res.data.forEach((user) => {
     let name = user.name;
