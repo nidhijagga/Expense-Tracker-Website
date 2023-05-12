@@ -5,21 +5,17 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 
+const cors = require("cors");
+app.use(cors());
+
 const dotenv = require("dotenv");
 dotenv.config();
-
-const helmet = require("helmet");
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false,
-  })
-);
 
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
+
 const morgan = require("morgan");
 app.use(morgan("combined", { stream: accessLogStream }));
 
